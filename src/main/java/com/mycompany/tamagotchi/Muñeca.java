@@ -13,21 +13,23 @@ public class Muñeca extends TamagotchiBase {
 
     @Override
     public void alimentar(String comida) {
+        if (!tieneHambre()) return;
+
         switch (comida.toLowerCase()) {
-            case "te":
-                hambre -= 10;
-                energia += 10;
-                felicidad += 15;
+            case "galletas":
+                reducirHambre(10);
+                aumentarEnergia(5);
+                aumentarFelicidad(10);
                 break;
             case "pastel":
-                hambre -= 20;
-                energia += 5;
-                felicidad += 20;
+                reducirHambre(15);
+                aumentarEnergia(10);
+                aumentarFelicidad(15);
                 break;
-            case "dulces":
-                hambre -= 15;
-                energia += 15;
-                felicidad += 10;
+            case "jugo":
+                reducirHambre(5);
+                aumentarEnergia(10);
+                aumentarFelicidad(5);
                 break;
             default:
                 System.out.println("Comida no reconocida.");
@@ -37,17 +39,23 @@ public class Muñeca extends TamagotchiBase {
     @Override
     public void jugar(String juego) {
         switch (juego.toLowerCase()) {
-            case "jugar a las muñecas":
-                felicidad += 25;
-                energia -= 10;
+            case "fiesta de té":
+                if (!tieneEnergiaPara(10)) return;
+                aumentarFelicidad(20);
+                reducirEnergia(10);
+                aumentarHambre(5);
                 break;
-            case "contar historias":
-                felicidad += 15;
-                energia -= 5;
+            case "desfile de modas":
+                if (!tieneEnergiaPara(15)) return;
+                aumentarFelicidad(25);
+                reducirEnergia(15);
+                aumentarHambre(10);
                 break;
             case "bailar":
-                felicidad += 20;
-                energia -= 15;
+                if (!tieneEnergiaPara(20)) return;
+                aumentarFelicidad(15);
+                reducirEnergia(20);
+                aumentarHambre(20);
                 break;
             default:
                 System.out.println("Juego no reconocido.");
@@ -57,21 +65,22 @@ public class Muñeca extends TamagotchiBase {
     @Override
     public void dormir() {
         energia = 100;
-        System.out.println(nombre + " duerme tranquila y feliz.");
+        System.out.println(nombre + " se acuesta en su cama rosa y duerme.");
     }
 
     @Override
     public void comportamientoEspecial() {
-        System.out.println(nombre + " dice que esta aburrida o feliz, y a veces llora.");
+        System.out.println(nombre + " dice que está aburrida... o tal vez feliz.");
     }
 
     @Override
     public String[] getJuegos() {
-        return new String[]{"Jugar a las muñecas", "Contar historias", "Bailar"};
+        return new String[]{"Fiesta de té", "Desfile de modas", "Bailar"};
     }
 
     @Override
     public String[] getComidas() {
-        return new String[]{"Te", "Pastel", "Dulces"};
+        return new String[]{"Galletas", "Pastel", "Jugo"};
     }
 }
+

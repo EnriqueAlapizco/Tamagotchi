@@ -12,21 +12,23 @@ public class Cuyo extends TamagotchiBase {
 
     @Override
     public void alimentar(String comida) {
+        if (!tieneHambre()) return;
+
         switch (comida.toLowerCase()) {
             case "zanahoria":
-                hambre -= 20;
-                energia += 10;
-                felicidad += 5;
-                break;
-            case "heno":
-                hambre -= 15;
-                energia += 15;
-                felicidad += 10;
+                reducirHambre(15);
+                aumentarEnergia(10);
+                aumentarFelicidad(10);
                 break;
             case "lechuga":
-                hambre -= 10;
-                energia += 5;
-                felicidad += 15;
+                reducirHambre(10);
+                aumentarEnergia(5);
+                aumentarFelicidad(5);
+                break;
+            case "pepino":
+                reducirHambre(20);
+                aumentarEnergia(15);
+                aumentarFelicidad(10);
                 break;
             default:
                 System.out.println("Comida no reconocida.");
@@ -36,17 +38,23 @@ public class Cuyo extends TamagotchiBase {
     @Override
     public void jugar(String juego) {
         switch (juego.toLowerCase()) {
-            case "roer madera":
-                felicidad += 25;
-                energia -= 15;
+            case "rodar en la rueda":
+                if (!tieneEnergiaPara(15)) return;
+                aumentarFelicidad(20);
+                reducirEnergia(15);
+                aumentarHambre(20);
                 break;
-            case "explorar":
-                felicidad += 15;
-                energia -= 10;
+            case "explorar laberinto":
+                if (!tieneEnergiaPara(20)) return;
+                aumentarFelicidad(25);
+                reducirEnergia(20);
+                aumentarHambre(10);
                 break;
-            case "correr en rueda":
-                felicidad += 20;
-                energia -= 15;
+            case "correr en círculo":
+                if (!tieneEnergiaPara(10)) return;
+                aumentarFelicidad(15);
+                reducirEnergia(10);
+                aumentarHambre(15);
                 break;
             default:
                 System.out.println("Juego no reconocido.");
@@ -56,21 +64,22 @@ public class Cuyo extends TamagotchiBase {
     @Override
     public void dormir() {
         energia = 100;
-        System.out.println(nombre + " duerme en su casita.");
+        System.out.println(nombre + " duerme mientras hace sonidos de 'cuy cuy'.");
     }
 
     @Override
     public void comportamientoEspecial() {
-        System.out.println(nombre + " hace cuy cuy y disfruta roer la madera.");
+        System.out.println(nombre + " hace 'cuy cuy' y roe la madera.");
     }
 
     @Override
     public String[] getJuegos() {
-        return new String[]{"Roer madera", "Explorar", "Correr en rueda"};
+        return new String[]{"Rodar en la rueda", "Explorar laberinto", "Correr en círculo"};
     }
 
     @Override
     public String[] getComidas() {
-        return new String[]{"Zanahoria", "Heno", "Lechuga"};
+        return new String[]{"Zanahoria", "Lechuga", "Pepino"};
     }
 }
+

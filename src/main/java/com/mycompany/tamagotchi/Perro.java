@@ -5,27 +5,30 @@
 package com.mycompany.tamagotchi;
 
 public class Perro extends TamagotchiBase {
+
     public Perro(String nombre) {
         super(nombre);
     }
 
     @Override
     public void alimentar(String comida) {
+        if (!tieneHambre()) return;
+
         switch (comida.toLowerCase()) {
             case "croquetas":
-                hambre -= 20;
-                energia += 10;
-                felicidad += 5;
+                reducirHambre(20);
+                aumentarEnergia(10);
+                aumentarFelicidad(5);
                 break;
             case "hueso":
-                hambre -= 10;
-                energia += 5;
-                felicidad += 15;
+                reducirHambre(10);
+                aumentarEnergia(5);
+                aumentarFelicidad(10);
                 break;
-            case "pollo":
-                hambre -= 15;
-                energia += 15;
-                felicidad += 10;
+            case "carne":
+                reducirHambre(25);
+                aumentarEnergia(15);
+                aumentarFelicidad(15);
                 break;
             default:
                 System.out.println("Comida no reconocida.");
@@ -35,17 +38,23 @@ public class Perro extends TamagotchiBase {
     @Override
     public void jugar(String juego) {
         switch (juego.toLowerCase()) {
-            case "lanzar pelota":
-                felicidad += 20;
-                energia -= 15;
+            case "buscar la pelota":
+                if (!tieneEnergiaPara(15)) return;
+                aumentarFelicidad(20);
+                reducirEnergia(15);
+                aumentarHambre(10);
                 break;
-            case "perseguir cola":
-                felicidad += 10;
-                energia -= 5;
+            case "correr":
+                if (!tieneEnergiaPara(20)) return;
+                aumentarFelicidad(25);
+                reducirEnergia(20);
+                aumentarHambre(20);
                 break;
-            case "buscar":
-                felicidad += 15;
-                energia -= 10;
+            case "dar la pata":
+                if (!tieneEnergiaPara(5)) return;
+                aumentarFelicidad(10);
+                reducirEnergia(5);
+                aumentarHambre(5);
                 break;
             default:
                 System.out.println("Juego no reconocido.");
@@ -55,21 +64,22 @@ public class Perro extends TamagotchiBase {
     @Override
     public void dormir() {
         energia = 100;
-        System.out.println(nombre + " está durmiendo como un buen perrito.");
+        System.out.println(nombre + " duerme profundamente. ¡Zzz!");
     }
 
     @Override
     public void comportamientoEspecial() {
-        System.out.println(nombre + " ladra felizmente y persigue su cola.");
+        System.out.println(nombre + " mueve la cola y ladra felizmente.");
     }
 
     @Override
     public String[] getJuegos() {
-        return new String[]{"Lanzar pelota", "Perseguir cola", "Buscar"};
+        return new String[]{"Buscar la pelota", "Correr", "Dar la pata"};
     }
 
     @Override
     public String[] getComidas() {
-        return new String[]{"Croquetas", "Hueso", "Pollo"};
+        return new String[]{"Croquetas", "Hueso", "Carne"};
     }
 }
+

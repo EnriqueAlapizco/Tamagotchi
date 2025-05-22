@@ -27,6 +27,45 @@ public abstract class TamagotchiBase implements TamagotchiActions {
 
     public abstract String[] getJuegos();
     public abstract String[] getComidas();
+    
+    
+    protected boolean tieneEnergiaPara(int cantidad) {
+        if (energia < cantidad) {
+            System.out.println(nombre + " no tiene suficiente energía para hacer esto.");
+            return false;
+        }
+        return true;
+    }
+
+    protected boolean tieneHambre() {
+        if (hambre <= 0) {
+            System.out.println(nombre + " no tiene hambre.");
+            return false;
+        }
+        return true;
+    }
+    
+    protected void aumentarFelicidad(int valor) {
+        felicidad = Math.min(100, felicidad + valor);
+    }
+
+    protected void aumentarEnergia(int valor) {
+        energia = Math.min(100, energia + valor);
+    }
+
+    protected void aumentarHambre(int valor) {
+        hambre = Math.min(100, hambre + valor);
+    }
+
+    protected void reducirEnergia(int valor) {
+        energia = Math.max(0, energia - valor);
+    }
+
+    protected void reducirHambre(int valor) {
+        hambre = Math.max(0, hambre - valor);
+    }
+    
+    
 
     void comportamientoEspecial() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
