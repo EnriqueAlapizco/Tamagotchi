@@ -3,10 +3,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.tamagotchi;
-
+import java.util.Random;
 
 public class Muñeca extends TamagotchiBase {
-
+    
+    private final String[] comportamientos = {
+        "dice que está aburrida",
+        "da una vuelta con su vestido",
+        "lanza besitos al aire"
+    };
+    
     public Muñeca(String nombre) {
         super(nombre);
     }
@@ -70,7 +76,9 @@ public class Muñeca extends TamagotchiBase {
 
     @Override
     public void comportamientoEspecial() {
-        System.out.println(nombre + " dice que está aburrida... o tal vez feliz.");
+        Random random = new Random();
+        int index = random.nextInt(comportamientos.length);
+        System.out.println(nombre + " " + comportamientos[index] + ".");
     }
 
     @Override

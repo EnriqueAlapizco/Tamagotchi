@@ -3,9 +3,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.tamagotchi;
+import java.util.Random;
 
 public class Perro extends TamagotchiBase {
-
+    
+    private final String[] comportamientos = {
+            "ladra emocionado",
+            "mueve la cola sin parar",
+            "persigue su propia cola"
+        };
+    
     public Perro(String nombre) {
         super(nombre);
     }
@@ -69,7 +76,9 @@ public class Perro extends TamagotchiBase {
 
     @Override
     public void comportamientoEspecial() {
-        System.out.println(nombre + " mueve la cola y ladra felizmente.");
+        Random random = new Random();
+        int index = random.nextInt(comportamientos.length);
+        System.out.println(nombre + " " + comportamientos[index] + ".");
     }
 
     @Override

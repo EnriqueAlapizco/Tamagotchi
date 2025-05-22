@@ -65,7 +65,6 @@ public abstract class TamagotchiBase implements TamagotchiActions {
         hambre = Math.max(0, hambre - valor);
     }
     
-    
 
     void comportamientoEspecial() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
