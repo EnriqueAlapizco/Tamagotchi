@@ -90,7 +90,7 @@ public class Tamagotchi {
                     mascota.mostrarEstado();
                     break;
                 case 5:
-                    mascota.comportamientoEspecial();
+                    mascota.realizarAccionEspecial();
                     break;
                 case 0:
                     System.out.println("Hasta luego");

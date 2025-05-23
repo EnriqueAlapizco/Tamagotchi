@@ -19,21 +19,21 @@ public class Gato extends TamagotchiBase {
 
     @Override
     public void alimentar(String comida) {
-        if (!tieneHambre()) return;
+        if (!puedeSerAlimentado()) return; // Changed from tieneHambre()
 
         switch (comida.toLowerCase()) {
             case "atún":
-                reducirHambre(20);
+                aumentarHambrePorAlimentacion(20); // Changed from disminuirHambre
                 aumentarEnergia(10);
                 aumentarFelicidad(10);
                 break;
             case "leche":
-                reducirHambre(10);
+                aumentarHambrePorAlimentacion(10); // Changed from disminuirHambre
                 aumentarEnergia(5);
                 aumentarFelicidad(5);
                 break;
             case "pollo":
-                reducirHambre(25);
+                aumentarHambrePorAlimentacion(25); // Changed from disminuirHambre
                 aumentarEnergia(15);
                 aumentarFelicidad(10);
                 break;
@@ -48,20 +48,20 @@ public class Gato extends TamagotchiBase {
             case "cazar ratón":
                 if (!tieneEnergiaPara(15)) return;
                 aumentarFelicidad(20);
-                reducirEnergia(15);
-                aumentarHambre(10);
+                disminuirEnergia(15);
+                disminuirHambrePorJuego(10); // Changed from aumentarHambreJugar
                 break;
             case "saltar cajas":
                 if (!tieneEnergiaPara(10)) return;
                 aumentarFelicidad(15);
-                reducirEnergia(10);
-                aumentarHambre(15);
+                disminuirEnergia(10);
+                disminuirHambrePorJuego(15); // Changed from aumentarHambreJugar
                 break;
             case "seguir luz":
                 if (!tieneEnergiaPara(5)) return;
                 aumentarFelicidad(10);
-                reducirEnergia(5);
-                aumentarHambre(5);
+                disminuirEnergia(5);
+                disminuirHambrePorJuego(5); // Changed from aumentarHambreJugar
                 break;
             default:
                 System.out.println("Juego no reconocido.");
@@ -70,15 +70,16 @@ public class Gato extends TamagotchiBase {
 
     @Override
     public void dormir() {
-        energia = 100;
+        this.energia = 100;
+        this.estaDurmiendo = true; // Marcar como durmiendo
         System.out.println(nombre + " se acurruca y duerme plácidamente.");
     }
 
     @Override
-    public void comportamientoEspecial() {
+    public String realizarAccionEspecial() {
         Random random = new Random();
         int index = random.nextInt(comportamientos.length);
-        System.out.println(nombre + " " + comportamientos[index] + ".");
+        return nombre + " " + comportamientos[index] + "."; // MODIFIED: Return only the special action message
     }
 
     @Override

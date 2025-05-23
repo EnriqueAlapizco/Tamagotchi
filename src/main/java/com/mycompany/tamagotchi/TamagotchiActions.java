@@ -10,4 +10,5 @@ public interface TamagotchiActions {
     void jugar(String tipoJuego);
     void dormir();
     void mostrarEstado();
+    String realizarAccionEspecial(); // Nueva acción especial
 }
