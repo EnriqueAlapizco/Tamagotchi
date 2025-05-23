@@ -178,7 +178,30 @@ public class UI extends javax.swing.JFrame {
     private void initComponents() {
 
         BotonAlimentar = new javax.swing.JButton();
-        Mascota = new javax.swing.JPanel();
+        Mascota = new javax.swing.JPanel() {
+            private transient BufferedImage bgImage = null;
+            {
+                // This ensures bgImage is initialized with the backgroundImageForMascota from the UI instance
+                if (UI.this.backgroundImageForMascota != null) {
+                    this.bgImage = UI.this.backgroundImageForMascota;
+                } else {
+                    // Fallback or logging if backgroundImageForMascota is null
+                    System.err.println("backgroundImageForMascota is null when Mascota panel is initialized.");
+                }
+            }
+            @Override
+            protected void paintComponent(java.awt.Graphics g) {
+                super.paintComponent(g);
+                if (bgImage != null) {
+                    g.drawImage(bgImage, 0, 0, getWidth(), getHeight(), this);
+                } else {
+                    // Optionally draw a default background or log an error
+                    // For example, fill with a solid color if no image
+                    // g.setColor(java.awt.Color.LIGHT_GRAY);
+                    // g.fillRect(0, 0, getWidth(), getHeight());
+                }
+            }
+        };
         Accion = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         BotonJugar = new javax.swing.JButton();
@@ -203,10 +226,10 @@ public class UI extends javax.swing.JFrame {
 
         Accion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Accion.setText("asdads");
-        Mascota.add(Accion, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 40, 180, 70));
+        Mascota.add(Accion, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 40, 140, 70));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mycompany/tamagotchi/dialogo.png"))); // NOI18N
-        Mascota.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 0, 190, 180));
+        Mascota.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 0, -1, -1));
 
         BotonJugar.setText("Jugar");
         BotonJugar.addActionListener(new java.awt.event.ActionListener() {
